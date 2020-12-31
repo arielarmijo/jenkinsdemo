@@ -23,6 +23,7 @@ public class EmployeeServiceMock implements EmployeeService {
 		empleados.add(new Empleado(108, "Nancy", "Greenberg", 12000));
 		empleados.add(new Empleado(109, "Daniel", "Faviet", 9000));
 		empleados.add(new Empleado(110, "John", "Chen", 8000));
+		empleados.add(new Empleado(110, "John", "Chen", 8000));
 	}
 	
 	public static EmployeeServiceMock getInstance() {
