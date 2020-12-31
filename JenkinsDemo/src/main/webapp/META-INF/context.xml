@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<Context>
+    <Resource
+        name="PruebaDS"
+        type="javax.sql.DataSource"
+        auth="Container"
+        username="HR"
+        password="HR"
+        driverClassName="oracle.jdbc.OracleDriver"
+        url="jdbc:oracle:thin:@localhost:1521:XE"
+        maxActive="20"
+        maxIdle="5"
+        maxWait="10000"/>
+</Context>
