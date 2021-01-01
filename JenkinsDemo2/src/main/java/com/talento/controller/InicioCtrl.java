@@ -31,7 +31,9 @@ public class InicioCtrl extends HttpServlet {
 		Date date = new Date();
 		request.setAttribute("date", date);
 		response.setHeader("Refresh", "5");
-		request.getRequestDispatcher("/jsp/index.jsp").forward(request, response);
+		System.out.println(request.getContextPath());
+		request.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request, response);
+		
 	}
 
 	/**
