@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class InicioCtrl
  */
-@WebServlet("/")
+@WebServlet("/fecha")
 public class InicioCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -30,7 +30,7 @@ public class InicioCtrl extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Date date = new Date();
 		request.setAttribute("date", date);
-		//response.setHeader("Refresh", "5");
+		response.setHeader("Refresh", "5");
 		System.out.println(request.getContextPath());
 		request.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request, response);
 		
