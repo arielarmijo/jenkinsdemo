@@ -14,10 +14,12 @@
 			<div class="card shadow rounded text-center py-4 col-6">
 				<h1 class="card-title">Hola Mundo</h1>
 				<a href="<c:url value="/"/>">
-					<img class="rounded-circle shadow mb-3" src="<c:url value="/img/camaleon.jpg"/>" height="150" width="150" alt="face.jpg"/>
+				<c:url value="/img/camaleon.jpg" var="imagen"/>
+					<img class="rounded-circle shadow mb-3" src="${imagen}" height="150" width="150" alt="face.jpg"/>
 				</a>
 				<p>Aplicación web dinámica de prueba</p>
 				<p>${date}</p>
+				<p>${imagen }</p>
 			</div>
 		</div>
 	</div>
