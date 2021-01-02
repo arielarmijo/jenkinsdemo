@@ -13,17 +13,17 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 @WebServlet("/change")
-public class ChangeAvatarCtrl extends HttpServlet {
+public class ChangeAvatarServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
-	static Log logger = LogFactory.getLog(ChangeAvatarCtrl.class);
+	static Log logger = LogFactory.getLog(ChangeAvatarServlet.class);
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ServletContext context = request.getServletContext();
 		String avatar = request.getParameter("avatar");
 		context.setAttribute("avatar", avatar);
+		logger.info("Avatar cambiado a: " + avatar);
 		request.getRequestDispatcher("webdemo.jsp").forward(request, response);
-		logger.info("Avatar: " + avatar);
 	}
 
 }

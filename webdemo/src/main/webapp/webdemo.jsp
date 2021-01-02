@@ -29,6 +29,7 @@
 				
 				<div class="container">
 				
+					<!-- AVATAR FORM -->
 					<form id="avatarForm" action="change" method="post" class="mb-3 mx-auto w-75">
 						<div class="row flex-nowrap justify-content-center">
 							<label class="col-4 mr-2 text-right col-form-label">Avatar</label>
@@ -47,8 +48,10 @@
 							</select>
 						</div>
 					</form>
+					<!-- /AVATAR FORM -->
 					
-					<form action="upload" method="post" enctype="multipart/form-data">
+					<!-- UPLOAD FORM -->
+					<form id="uploadForm" action="upload" method="post" enctype="multipart/form-data">
 						<div class="row flex-nowrap justify-content-center">
 							<div class="custom-file w-75">
 								<input type="file" class="custom-file-input" id="customFile" name="image" size="50" accept="image/png, image/jpeg" required>
@@ -56,9 +59,19 @@
 							</div>
 							<button type="submit" class="btn btn-small btn-info ml-2"><i class="fas fa-upload"></i></button>
 						</div>
-						<p class="${bsClass} mt-3">${mensaje}</p>
 					</form>
+					<!-- /UPLOAD FORM -->
 					
+					<!-- FEEDBACK MESSAGE -->
+					<c:if test="${not empty mensaje}">
+						<div class="alert ${bsClass} alert-dismissible fade show w-75 mx-auto mt-3" role="alert">
+							${mensaje}
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							 </button>
+						</div>
+					</c:if>
+					<!-- /FEEDBACK MESSAGE -->
 				</div>
 				
 			</div>

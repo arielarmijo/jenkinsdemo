@@ -1,35 +1,32 @@
 package com.talento.webdemo.service;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
+
+import javax.servlet.ServletContext;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.talento.webdemo.controller.HomeServlet;
 
 public class ImageServiceLocal implements ImageService {
 
-	@Override
-	public List<Path> getImagePaths(String path) {
-		List<Path> imagenes = null;
-		try {
-			imagenes = Files.list(Paths.get(path))
-					   		.filter(p -> !Files.isDirectory(p))
-					   		.map(p -> p.toAbsolutePath())
-					   		.sorted().collect(Collectors.toList());
-			System.out.println("\nImagenes encontradas:");
-			for (Path imagen : imagenes) {
-				System.out.println(imagen);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return imagenes;
+	private ServletContext context;
+	private String imageDir;
+	private static Log logger = LogFactory.getLog(HomeServlet.class);
+	
+	public ImageServiceLocal(ServletContext context) {
+		this.context = context;
+		imageDir = context.getInitParameter("imageDir");
 	}
 
 	@Override
-	public List<String> getImageNames(String path) {
-		return getImagePaths(path).stream().map(p -> p.getFileName().toString()).collect(Collectors.toList());
+	public List<String> getImagesNames() {
+		Set<String> recursos = context.getResourcePaths(imageDir);
+		recursos.stream().forEach(r -> logger.info("Imagen encontrada: " + r));
+		return recursos.stream().map(s -> s.replaceFirst(imageDir, "")).sorted().collect(Collectors.toList());
 	}
 
 }

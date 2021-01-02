@@ -16,26 +16,25 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.talento.webdemo.service.ImageService;
+import com.talento.webdemo.service.ImageServiceLocal;
+
 @WebServlet(urlPatterns="/", loadOnStartup=1)
-public class HomeCtrl extends HttpServlet {
+public class HomeServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
-	static Log logger = LogFactory.getLog(HomeCtrl.class);
+	static Log logger = LogFactory.getLog(HomeServlet.class);
 	
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init();
 		ServletContext context = config.getServletContext();
-		String imgDir = context.getInitParameter("imgDir");
+		ImageService service = new ImageServiceLocal(context);
 		String file = context.getInitParameter("file");
-		Set<String> recursos = context.getResourcePaths(imgDir);
-		List<String> imagenes = recursos.stream().map(s -> s.replaceFirst(imgDir, "")).sorted().collect(Collectors.toList());
-		
+		List<String> imagenes = service.getImagesNames();
 		context.setAttribute("avatar", file);
 		context.setAttribute("imagenes", imagenes);
-		
 	    logger.info(String.format("HomeCtrl configurado: avatar=%s, imágenes=%d", file, imagenes.size()));
-	    
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

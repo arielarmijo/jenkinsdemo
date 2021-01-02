@@ -5,7 +5,7 @@
 	version="3.1">
 	<display-name>webdemo</display-name>
 	<context-param>
-        <param-name>imgDir</param-name>
+        <param-name>imageDir</param-name>
         <param-value>/img/</param-value>
     </context-param>
     <context-param>
