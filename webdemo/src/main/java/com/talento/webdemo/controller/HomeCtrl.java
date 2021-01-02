@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-@WebServlet("/")
+@WebServlet(urlPatterns="/", loadOnStartup=1)
 public class HomeCtrl extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
@@ -34,7 +34,7 @@ public class HomeCtrl extends HttpServlet {
 		context.setAttribute("avatar", file);
 		context.setAttribute("imagenes", imagenes);
 		
-	    logger.info("HomeCtrl configurado.");
+	    logger.info(String.format("HomeCtrl configurado: avatar=%s, imágenes=%d", file, imagenes.size()));
 	    
 	}
 

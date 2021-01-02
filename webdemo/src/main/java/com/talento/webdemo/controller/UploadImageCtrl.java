@@ -34,7 +34,7 @@ public class UploadImageCtrl extends HttpServlet {
 		ServletContext context = request.getServletContext();
 		String imgDir = context.getInitParameter("imgDir");
 		String path = context.getRealPath(imgDir);
-		logger.info("Directorio de imágenes: " + path);
+		
 		if (ServletFileUpload.isMultipartContent(request)) {
 			try {
 				DiskFileItemFactory factory = new DiskFileItemFactory();
@@ -47,8 +47,8 @@ public class UploadImageCtrl extends HttpServlet {
 					String fileName = fileItem.getName();
 					File file = new File(path  + fileName);
 					fileItem.write(file);
+					logger.info("Imagen guardada en: " + file.getAbsolutePath());
 				}
-				//ImageService service = new ImageServiceLocal();
 				Set<String> recursos = context.getResourcePaths(imgDir);
 				List<String> imagenes = recursos.stream().map(s -> s.replaceFirst(imgDir, "")).sorted().collect(Collectors.toList());
 				context.setAttribute("imagenes", imagenes);
