@@ -50,9 +50,9 @@ public class ImageCtrl extends HttpServlet {
 		try (InputStream in = context.getResourceAsStream(image);
 			 OutputStream out = response.getOutputStream()) {
 			// Escribe respuesta usando IO API
-			streamIO(in, out, bufferSize);
+			//streamIO(in, out, bufferSize);
 			// Escribe respuesta usando NIO API
-			//streamNIO(in, out, bufferSize);
+			streamNIO(in, out, bufferSize);
 			// Escribe respuesta usando Buffered IO
 			//streamBufferedIO(in, out, fileSize);
 		}
