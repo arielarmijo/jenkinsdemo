@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,26 +13,27 @@
 	<div class="container">
 		<div class="row justify-content-center py-5">
 			<div class="card rounded shadow col-8 py-4 text-center">
-				<h2>Web Demo</h2>
+				<a href="<c:url value="/"/>" class="text-decoration-none"><h2>Web Demo</h2></a>
 				<c:url value="/image" var="img">
-						<c:param name="id">${avatarIndex}</c:param>
+						<c:param name="file">${avatar}</c:param>
 					</c:url>
 				<a href="${img}">
-					<img class="rounded-circle mx-auto my-3 img-fluid" src="${img}" height="150" width="150" alt="${img}"/>
+					<img class="rounded-circle mx-auto my-3" src="${img}" height="150" width="150" alt="${img}"/>
 				</a>
 				<p>Aplicación web de muestra</p>
 				<div class="container">
 					<form id="avatarForm" action="change" method="post" class="mb-3">
 						<div class="row flex-nowrap justify-content-end">
-							<label class="col-4 mr-2">Seleccionar avatar</label>
-							<select class="custom-select" name="index" onchange="cambiarImagen();">
-								<c:forEach var="fileName" items="${fileNames}" varStatus="loop">
+							<label class="col-4 mr-2 text-right">Avatar</label>
+							<select class="custom-select" name="avatar" onchange="cambiarImagen();">
+								<c:forEach var="imagen" items="${imagenes}" varStatus="loop">
+									<c:set var="nombre" value="${fn:substringBefore(imagen, '.')}"/>
 									<c:choose>
-										<c:when test="${loop.index eq avatarIndex}">
-											<option value="${loop.index}" selected>${fileName}</option>
+										<c:when test="${imagen eq avatar}">
+											<option value="${imagen}" selected>${nombre}</option>
 										</c:when>
 										<c:otherwise>
-											<option value="${loop.index}">${fileName}</option>
+											<option value="${imagen}">${nombre}</option>
 										</c:otherwise>
 									</c:choose>
 								</c:forEach>
@@ -40,9 +42,9 @@
 					</form>
 					<form action="upload" method="post" enctype="multipart/form-data">
 						<div class="row flex-nowrap justify-content-end">
-							<div class="custom-file">
-								<input type="file" class="custom-file-input" id="customFile" name="image" size="50" accept="image/png, image/jpeg" multiple="multiple" required>
-							  	<label class="custom-file-label" for="customFile" data-browse="Explorar">Seleccionar imagen</label>
+							<div class="custom-file w-75">
+								<input type="file" class="custom-file-input" id="customFile" name="image" size="50" accept="image/png, image/jpeg" required>
+							  	<label class="custom-file-label" for="customFile" data-browse="Explorar">Subir imagen</label>
 							</div>
 							<button type="submit" class="btn btn-small btn-info ml-2"><i class="fas fa-upload"></i></button>
 						</div>

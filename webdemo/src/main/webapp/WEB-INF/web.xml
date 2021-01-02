@@ -4,4 +4,12 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_1.xsd"
 	version="3.1">
 	<display-name>webdemo</display-name>
+	<context-param>
+        <param-name>imgDir</param-name>
+        <param-value>/img/</param-value>
+    </context-param>
+    <context-param>
+        <param-name>file</param-name>
+        <param-value>foca.jpg</param-value>
+    </context-param>
 </web-app>

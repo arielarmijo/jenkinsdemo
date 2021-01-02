@@ -1,8 +1,9 @@
 package com.talento.webdemo.controller;
 
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -12,25 +13,29 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.talento.webdemo.service.ImageService;
-import com.talento.webdemo.service.ImageServiceLocal;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 @WebServlet("/")
 public class HomeCtrl extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
+	static Log logger = LogFactory.getLog(HomeCtrl.class);
 	
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init();
 		ServletContext context = config.getServletContext();
-		String path = context.getRealPath("/img");
-		ImageService service = new ImageServiceLocal();
-		List<Path> paths = service.getImagePaths(path);
-		context.setAttribute("path", path);
-		context.setAttribute("paths", paths);
-		context.setAttribute("fileNames", service.getImageNames(path));
-		context.setAttribute("avatarIndex", 0);
+		String imgDir = context.getInitParameter("imgDir");
+		String file = context.getInitParameter("file");
+		Set<String> recursos = context.getResourcePaths(imgDir);
+		List<String> imagenes = recursos.stream().map(s -> s.replaceFirst(imgDir, "")).sorted().collect(Collectors.toList());
+		
+		context.setAttribute("avatar", file);
+		context.setAttribute("imagenes", imagenes);
+		
+	    logger.info("HomeCtrl configurado.");
+	    
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
