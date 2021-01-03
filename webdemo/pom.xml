@@ -41,4 +41,8 @@
 			<version>1.2.12</version>
 		</dependency>
 	</dependencies>
+	
+	<build>
+		<finalName>webdemo</finalName>
+	</build>
 </project>
