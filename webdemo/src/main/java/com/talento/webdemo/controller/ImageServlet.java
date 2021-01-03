@@ -1,6 +1,8 @@
 package com.talento.webdemo.controller;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -15,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.talento.utils.IOUtil;
+import com.talento.webdemo.utils.IOUtil;
 
 @WebServlet("/image")
 public class ImageServlet extends HttpServlet {
@@ -45,11 +47,17 @@ public class ImageServlet extends HttpServlet {
 		int bufferSize = 1024*10; // 10 KB
 		
 		// Escribe respuesta
-		try (InputStream in = context.getResourceAsStream(image);
+		try (InputStream in = new BufferedInputStream(new FileInputStream(file));
 			 OutputStream out = response.getOutputStream()) {
-			IOUtil.writeInput2Output(in, out, bufferSize);
+			byte[] buffer = new byte[bufferSize];
+			int bytesReaded;
+			while ((bytesReaded = in.read(buffer)) > 0) {
+				out.write(buffer, 0, bytesReaded);
+				out.flush();
+			}
+		} catch (Exception e) {
+			e.getMessage();
 		}
-
 	}
 
 }

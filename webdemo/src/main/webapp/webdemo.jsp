@@ -14,7 +14,7 @@
 	
 		<div class="row justify-content-center py-5">
 		
-			<div class="card rounded shadow col-8 py-4 text-center">
+			<div class="card rounded shadow col-md-8 py-4 text-center">
 			
 				<a href="<c:url value="/"/>" class="text-decoration-none"><h2>Web Demo</h2></a>
 				

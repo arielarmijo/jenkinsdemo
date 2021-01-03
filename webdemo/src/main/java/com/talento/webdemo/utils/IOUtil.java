@@ -1,4 +1,4 @@
-package com.talento.utils;
+package com.talento.webdemo.utils;
 
 import java.io.DataInputStream;
 import java.io.IOException;
