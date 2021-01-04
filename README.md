@@ -1,4 +1,2 @@
 # jenkinsdemo
-Repositorio de ejemplo para probar jenkins
-
-[Ver demo](http://152.67.32.99:8080/webdemo/)
+Repositorio de ejemplo para probar jenkins. Al hacer push sobre este repositorio se inicia automáticamente un trabajo de jenkins que despliega la aplicación [webdemo](http://152.67.32.99:8080/webdemo/)
