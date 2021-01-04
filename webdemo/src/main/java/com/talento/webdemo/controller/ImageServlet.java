@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.talento.webdemo.utils.IOUtil;
+import com.talento.webdemo.utils.StopWatch;
 
 @WebServlet("/image")
 public class ImageServlet extends HttpServlet {
@@ -27,6 +27,9 @@ public class ImageServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		// Registra duración de la respuesta
+		StopWatch sw = new StopWatch();
+				
 		// Obtiene el contexto de la aplicacion
 		ServletContext context = request.getServletContext();
 
@@ -37,13 +40,12 @@ public class ImageServlet extends HttpServlet {
 		String mime = context.getMimeType(image);
 		File file = new File(path);
 		int fileSize = (int) file.length();
-		logger.info("Imagen requerida: " + path + "; " + mime + "; " + fileSize + " Kb");
 		
 		// Establece cabeceras de la respuesta
 		response.setContentType(mime);
 		response.setContentLength((int) file.length());
 		
-		// Define tamaño del buffer de lectura
+		// Define tamaño del buffer de lectura/escritura
 		int bufferSize = 1024*10; // 10 KB
 		
 		// Escribe respuesta
@@ -55,9 +57,10 @@ public class ImageServlet extends HttpServlet {
 				out.write(buffer, 0, bytesReaded);
 				out.flush();
 			}
-		} catch (Exception e) {
-			e.getMessage();
 		}
+		
+		logger.info("Imagen requerida " + file.getName() + " (" + fileSize + " Kb) entregada en " + sw.getElapsedTime() + " ms");
+		
 	}
 
 }

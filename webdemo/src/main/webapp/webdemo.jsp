@@ -25,7 +25,7 @@
 					<img class="rounded-circle mx-auto my-3" src="${img}" height="150" width="150" alt="${img}"/>
 				</a>
 				
-				<p>Aplicación web de muestra</p>
+				<p>Selecciona tu avatar</p>
 				
 				<div class="container">
 				
@@ -54,10 +54,11 @@
 					<form id="uploadForm" action="upload" method="post" enctype="multipart/form-data">
 						<div class="row flex-nowrap justify-content-center">
 							<div class="custom-file w-75">
-								<input type="file" class="custom-file-input" id="customFile" name="image" size="50" accept="image/png, image/jpeg" required>
-							  	<label class="custom-file-label" for="customFile" data-browse="Explorar">Subir imagen</label>
+								<input type="file" class="custom-file-input" id="customFile" name="image" size="50" accept="image/*" required>
+							  	<label class="custom-file-label pr-5" for="customFile" data-browse="Explorar">Subir imágen</label>
 							</div>
-							<button type="submit" class="btn btn-small btn-info ml-2"><i class="fas fa-upload"></i></button>
+							<label id="preview" class="col-form-label mx-3"></label>
+							<button type="submit" class="btn btn-small btn-info"><i class="fas fa-upload"></i></button>
 						</div>
 					</form>
 					<!-- /UPLOAD FORM -->
@@ -93,6 +94,37 @@
     	function cambiarImagen() {
     		  document.getElementById("avatarForm").submit();
     	  }
+    	
+    	const input = document.querySelector('input[type=file]');
+    	const preview = document.querySelector('#preview');
+    	
+    	input.addEventListener('change', updateImageDisplay);
+    	
+    	function updateImageDisplay() {
+    		while(preview.firstChild) {
+    		    preview.removeChild(preview.firstChild);
+    		  }
+    		const file = input.files[0];
+    		console.log(file);
+    		const img = document.createElement('img');
+    		img.src=URL.createObjectURL(file);
+    		img.width="35";
+    		img.height="35";
+    		preview.appendChild(img);
+    		
+    	}
+    	
+    	
+    	function returnFileSize(number) {
+    		  if(number < 1024) {
+    		    return number + 'bytes';
+    		  } else if(number >= 1024 && number < 1048576) {
+    		    return (number/1024).toFixed(1) + 'KB';
+    		  } else if(number >= 1048576) {
+    		    return (number/1048576).toFixed(1) + 'MB';
+    		  }
+    		}
+    	
     </script>
     
 </body>

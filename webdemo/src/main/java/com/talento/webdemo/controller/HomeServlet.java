@@ -24,20 +24,25 @@ public class HomeServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	static Log logger = LogFactory.getLog(HomeServlet.class);
+	private ServletContext context;
+	private ImageService service;
 	
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init();
-		ServletContext context = config.getServletContext();
-		ImageService service = new ImageServiceLocal(context);
+		context = config.getServletContext();
+		service = new ImageServiceLocal(context);
 		String file = context.getInitParameter("file");
 		List<String> imagenes = service.getImagesNames();
 		context.setAttribute("avatar", file);
 		context.setAttribute("imagenes", imagenes);
-	    logger.info(String.format("HomeCtrl configurado: avatar=%s, imágenes=%d", file, imagenes.size()));
+	    logger.info(String.format("Configuración establecida: avatar=%s, imágenes=%d", file, imagenes.size()));
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		List<String> imagenes = service.getImagesNames();
+		context.setAttribute("imagenes", imagenes);
+		logger.info(String.format("Actualizada lista de imágenes (%d)", imagenes.size()));
 		request.getRequestDispatcher("webdemo.jsp").forward(request, response);
 	}
 
