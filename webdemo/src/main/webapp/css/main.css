@@ -1,0 +1,49 @@
+body {
+	background-color: #264653;
+}
+
+a {
+	text-decoration: none;
+}
+h1 a {
+	color: #2A9D8F; 
+}
+
+h1 a:hover {
+	color: #E76F51;
+}
+
+.card {
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #E9C46A;
+	box-shadow: 0 .5rem 1rem #131e22;
+}
+
+.row {
+	margin-top: 1rem;
+}
+
+#uploadForm {
+	margin: 0 0;
+	padding: 0 0;
+	display: flex;
+	align-items: flex-end;
+}
+
+#feedback {
+	margin: 0;
+	padding: 2em 0;
+}
+
+footer p {
+	margin-bottom: 0;
+}
+
+footer small, footer a {
+	color: #2A9D8F;
+}
+
+footer p, footer a:hover {
+	color: #E9C46A;
+}

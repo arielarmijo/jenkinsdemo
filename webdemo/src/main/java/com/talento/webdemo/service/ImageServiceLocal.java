@@ -1,5 +1,6 @@
 package com.talento.webdemo.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -24,9 +25,13 @@ public class ImageServiceLocal implements ImageService {
 
 	@Override
 	public List<String> getImagesNames() {
+		List<String> imagenes = new ArrayList<>();
 		Set<String> recursos = context.getResourcePaths(imageDir);
-		recursos.stream().forEach(r -> logger.info("Imagen encontrada: " + r));
-		return recursos.stream().map(s -> s.replaceFirst(imageDir, "")).sorted().collect(Collectors.toList());
+		if (recursos != null) {
+			recursos.stream().forEach(r -> logger.info("Imagen encontrada: " + r));
+			imagenes = recursos.stream().map(s -> s.replaceFirst(imageDir, "")).sorted().collect(Collectors.toList());
+		}
+		return imagenes;
 	}
 
 }

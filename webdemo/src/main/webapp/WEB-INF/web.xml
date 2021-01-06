@@ -6,10 +6,17 @@
 	<display-name>webdemo</display-name>
 	<context-param>
         <param-name>imageDir</param-name>
-        <param-value>/img/</param-value>
+        <param-value>/img/avatar/</param-value>
     </context-param>
     <context-param>
-        <param-name>file</param-name>
+        <param-name>avatar</param-name>
         <param-value>foca.jpg</param-value>
     </context-param>
+  	<servlet-mapping>
+    	<servlet-name>default</servlet-name>
+	    <url-pattern>/img/*</url-pattern>
+	    <url-pattern>/css/*</url-pattern>
+	    <url-pattern>/js/*</url-pattern>
+	</servlet-mapping>
+	
 </web-app>

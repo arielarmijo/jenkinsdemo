@@ -2,8 +2,6 @@ package com.talento.webdemo.controller;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -19,31 +17,29 @@ import org.apache.commons.logging.LogFactory;
 import com.talento.webdemo.service.ImageService;
 import com.talento.webdemo.service.ImageServiceLocal;
 
-@WebServlet(urlPatterns="/", loadOnStartup=1)
+@WebServlet(urlPatterns = "/", loadOnStartup = 1)
 public class HomeServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	static Log logger = LogFactory.getLog(HomeServlet.class);
 	private ServletContext context;
 	private ImageService service;
+	private String avatar;
 	
 	@Override
 	public void init(ServletConfig config) throws ServletException {
-		super.init();
 		context = config.getServletContext();
 		service = new ImageServiceLocal(context);
-		String file = context.getInitParameter("file");
+		avatar = context.getInitParameter("avatar");
 		List<String> imagenes = service.getImagesNames();
-		context.setAttribute("avatar", file);
+		context.setAttribute("avatar", avatar);
 		context.setAttribute("imagenes", imagenes);
-	    logger.info(String.format("Configuración establecida: avatar=%s, imágenes=%d", file, imagenes.size()));
+	    logger.info(String.format("Configuración establecida: avatar=%s, imágenes=%d", avatar, imagenes.size()));
+	    super.init();
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<String> imagenes = service.getImagesNames();
-		context.setAttribute("imagenes", imagenes);
-		logger.info(String.format("Actualizada lista de imágenes (%d)", imagenes.size()));
-		request.getRequestDispatcher("webdemo.jsp").forward(request, response);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { 
+		request.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request, response);
 	}
 
 }

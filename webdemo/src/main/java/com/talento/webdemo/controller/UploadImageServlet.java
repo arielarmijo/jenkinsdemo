@@ -55,7 +55,7 @@ public class UploadImageServlet extends HttpServlet {
 			logger.error(e.getMessage());
 		}
 		// Redirige a página de inicio
-		request.getRequestDispatcher("webdemo.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request, response);
 	}
 
 }
